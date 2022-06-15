@@ -16,6 +16,7 @@ mongoose.connect(dbURL);
 const productRoutes = require("./Routes/Product");
 const orderRoutes = require("./Routes/Orders");
 const imageRoutes = require("./Routes/Images");
+const userRoutes = require("./Routes/Users");
 //Parser Adding
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -27,6 +28,7 @@ app.use(express.static("Imagesupload"));
 app.use("/products", productRoutes);
 app.use("/order", orderRoutes);
 app.use("/image", imageRoutes);
+app.use("/users", userRoutes);
 //Handle CORS errors, CORS errors are about who can access the server you are running
 app.use((req, res, next) => {
   req.header("Access-Control-Allow-Origin", "*");
