@@ -1,5 +1,5 @@
 var jwt = require("jsonwebtoken");
-import auth_key from "./AuthKey";
+const auth_key = require("./AuthKey");
 
 module.exports = (req, res, next) => {
   try {
