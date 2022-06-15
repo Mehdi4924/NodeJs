@@ -1,9 +1,10 @@
 const express = require("express");
 const route = express.Router();
 const User = require("../models/user");
+const mongoose = require("mongoose");
 //encrypt password using this bycrypt
 var bcrypt = require("bcryptjs");
-const mongoose = require("mongoose");
+//used for access token
 var jwt = require("jsonwebtoken");
 
 route.post("/signUp", (req, res, next) => {
@@ -75,14 +76,15 @@ route.post("/login", (req, res, next) => {
                 email: doc[0].email,
                 _id: doc[0]._id,
               },
-              process.env.JWT_KEY,
+              "process.env.JWT_KEY",
               {
                 expiresIn: "1h",
               }
             );
+            const newDoc = doc[0];
             return res.status(200).json({
-              err: "Sucessfull!",
-              body: { ...doc[0], tok },
+              message: "Sucessfull!",
+              body: { ...newDoc._doc, userToken },
             });
           } else {
             return res.status(401).json({
