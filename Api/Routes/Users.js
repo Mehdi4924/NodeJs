@@ -6,6 +6,9 @@ const mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
 //used for access token
 var jwt = require("jsonwebtoken");
+import auth_key from "../AuthCheck/AuthKey";
+//add as first middleware in the request and get Auth For Your User
+const authCheck = require("../AuthCheck/AuthCheck");
 
 route.post("/signUp", (req, res, next) => {
   User.find({ email: req.body.email })
@@ -76,7 +79,7 @@ route.post("/login", (req, res, next) => {
                 email: doc[0].email,
                 _id: doc[0]._id,
               },
-              "process.env.JWT_KEY",
+              auth_key,
               {
                 expiresIn: "1h",
               }
